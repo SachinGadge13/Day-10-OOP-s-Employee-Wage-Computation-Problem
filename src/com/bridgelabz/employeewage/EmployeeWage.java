@@ -4,46 +4,39 @@ import java.util.Random;
 
 public class EmployeeWage {
 
-	public static void main(String[] args) {
-		System.out.println("Welcome to Employee Wage Computation Program");
+	static final int isPresent = 1;
+	static final int isPartTime = 2;
 
-		int wagePerHour = 20;
-		int fullDayHours = 8;
-		int halfDayHours = 4;
-		int salary = 0;
-		int workingDayPerMonth = 20;
-		int monthlySalary = 0;
+	private void wagesTillMonth(int salaryPerHour, int totalWorkingDays, int maxWorkingHour, int fullDayWorkingHour) {
+		int empCheck;
+		int empHr = 0;
+		int totalSalary = 0;
+		int day = 0;
+		while (day < totalWorkingDays && (empHr + fullDayWorkingHour) <= maxWorkingHour) {
+			day++;
+			empCheck = (int) (Math.floor(Math.random() * 10) % 3);
 
-		int workingHourPerMonth = 0;
-		int days = 1;
-		Random random = new Random();
-		int randomNum = random.nextInt(3);
-
-		while (days != 20 && workingHourPerMonth != 100) {
-
-			switch (randomNum) {
-			case 0:
-				System.out.println("Employee is Absent");
+			switch (empCheck) {
+			case isPresent:
+				empHr += fullDayWorkingHour;
 				break;
 
-			case 1:
-				System.out.println("Employee is Present");
-				salary = wagePerHour * fullDayHours;
-				workingHourPerMonth = workingHourPerMonth + fullDayHours;
+			case isPartTime:
+				empHr += (fullDayWorkingHour / 2);
 				break;
 
-			case 2:
-				salary = wagePerHour * halfDayHours;
-				workingHourPerMonth = workingHourPerMonth + halfDayHours;
+			default:
+				empHr += 0;
 				break;
 			}
-
-			monthlySalary = monthlySalary + salary;
-			System.out.println("Day " + days + " : " + salary);
-			days++;
-
+			System.out.println("Working day : " + day + " (Present : " + empCheck + ")");
 		}
-		System.out.println("Employee Monthly Salary is : " + monthlySalary);
+		totalSalary = empHr * salaryPerHour;
+		System.out.println("Monthly Employee Wage is : " + totalSalary + "\nTotal working hours are : " + empHr);
 	}
 
+	public static void main(String[] args) {
+		EmployeeWage wage = new EmployeeWage();
+		wage.wagesTillMonth(20, 20, 100, 8);
+	}
 }
