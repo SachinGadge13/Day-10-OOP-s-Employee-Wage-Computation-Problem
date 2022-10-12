@@ -1,43 +1,88 @@
 package com.bridgelabz.employeewage;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EmployeeWage {
-	int isPartTime = 1;
-	int isFullTime = 2;
+	ArrayList<Integer> Wage = new ArrayList<Integer>(); // Arraylist to store Integer value
+	ArrayList<String> Wages = new ArrayList<String>(); // Arreylist to dtore String value
 
-	int computeEmpWage(String company, int empRatePerHr, int numOfWorkingDays, int maxHrsInMonth) {
-		// Variables
-		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+	void check() {
+		// variable
+		int totalsalary = 0;
+		int maxRateInMonth = 100;
+		int maxHoursInMonth = 100;
+		int totalEmpHr = 0;
+		int totalWorkingDays = 0;
+		int empHrs = 0;
+		int finalsalary = 0;
 
-		while (totalEmpHrs <= maxHrsInMonth && totalWorkingDays < numOfWorkingDays) {
+		System.out.println("Enter your company name ");
+		Scanner p2 = new Scanner(System.in);
+		String x = p2.nextLine();
+		System.out.println(x); // taking user input company name
+		Wages.add(x);
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter Employee rate Per hour of your Company :");
+		int empRatePerHr1 = scanner.nextInt();
+
+		System.out.println("Enter the Number of working days of your Company:");
+		int numOfWorkingDays1 = scanner.nextInt();
+
+		System.out.println("Enter the Number of working hours of your Company:");
+		int numOfWorkingHrs1 = scanner.nextInt();
+
+		while (totalEmpHr <= maxRateInMonth && totalWorkingDays <= numOfWorkingDays1
+				&& numOfWorkingHrs1 <= maxHoursInMonth) {
 			totalWorkingDays++;
-			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-			switch (empCheck) {
-			case 0:
+			double randomCheck = Math.floor(Math.random() * 10) % 3;
+			int i = (int) randomCheck;
+			switch (i) {
+			case 2:
+				// System.out.println("Employee is FullTime");
 				empHrs = 8;
 				break;
 			case 1:
+				// System.out.println("Employee is PartTime");
 				empHrs = 4;
 				break;
-			default:
+			case 0:
+				// System.out.println("Employee is Absent");
 				empHrs = 0;
+				break;
 			}
-			totalEmpHrs += empHrs;
-			System.out.println("Day: " + totalWorkingDays + " Emp Hr: " + empHrs);
+
+			totalEmpHr = totalEmpHr + empHrs;
+			// System.out.println(totalEmpHr);
+
 		}
-		int totalEmpWage = totalEmpHrs * empRatePerHr;
-		System.out.println("Total Employee Wage for " + company + " is : " + totalEmpWage);
-		return totalEmpWage;
+		totalsalary = totalEmpHr * empRatePerHr1;
+		finalsalary += totalsalary;
+
+		Wage.add(finalsalary);
+		System.out.println("Total Wages For Each Company Are : " + Wages);
+		System.out.println(Wage);
+
 	}
+
+
 
 	public static void main(String[] args) {
-		EmployeeWage Result = new EmployeeWage();
-		System.out.println("Welcome to the Employee Wage Computation Calculation");
 
-		Result.computeEmpWage("Flipkart", 20, 20, 100); // static int
-		Result.computeEmpWage("Google", 25, 22, 100);
-		Result.computeEmpWage("Microsoft", 25, 18, 100);// --empRatePerHr--numOfWorkingDays--maxHrsInMonth
+		System.out.println("How many company data you want to Enter ");
+		// creating object for to call method
+		EmployeeWage company = new EmployeeWage();
 
+		Scanner p1 = new Scanner(System.in);
+		p1.toString();
+		int noOfCompanys = p1.nextInt(); // taking for how many company you want to store data
+
+		for (int i = 1; i <= noOfCompanys; i++) {
+
+			company.check(); // calling method in object
+
+		}
 	}
+
 }
